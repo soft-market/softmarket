@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-
+import styled from 'styled-components/native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
@@ -8,8 +8,7 @@ import { RootTabScreenProps } from '../types';
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Divider />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
   );
@@ -31,3 +30,9 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+const Divider = styled.View`
+  height: 3;
+  width: 10;
+  color: #5e5e5e;
+`;
