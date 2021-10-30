@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
-
+import React from "react";
 type ComponentWithChildProps = React.PropsWithChildren<Props>;
 
 type Props = {

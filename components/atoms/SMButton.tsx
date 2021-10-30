@@ -1,5 +1,5 @@
 import { Button } from "react-native";
-
+import React from "react";
 type Props = {
   width: number;
   height: number;

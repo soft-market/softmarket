@@ -1,13 +1,19 @@
 import React from "react";
 import { View, Text } from "react-native";
 import styled from "styled-components/native";
-import BottomNavigation from "../navigation/BottomNavigation";
+import GroupedCardList from "../components/organisms/GroupedCardList";
 import { RootTabScreenProps } from "../types";
 
 const HomeScreen = ({ navigation }: RootTabScreenProps<"Settings">) => {
   return (
     <Container>
-      <Text>Home</Text>
+      <GroupedCardList
+        cardList={[
+          { title: "test", image: null },
+          { title: "test", image: null },
+          { title: "test", image: null }
+        ]}
+      />
     </Container>
   );
 };
