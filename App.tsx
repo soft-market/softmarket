@@ -7,8 +7,10 @@ import { ThemeProvider } from "styled-components/native";
 import { dark, light } from "./constants/Theme";
 import useCachedResources from "./hooks/useCachedResources";
 import FirstInitScreen from "./screens/FirstInitScreen";
+import StorybookUI from "./storybook";
+import Config from "react-native-config";
 
-export default function App() {
+function App() {
   const isLoadingComplete = useCachedResources();
   const color = useColorScheme();
   if (!isLoadingComplete) {
@@ -26,3 +28,5 @@ export default function App() {
     );
   }
 }
+
+export default Config.LOAD_STORYBOOK === "true" ? StorybookUI : App;
