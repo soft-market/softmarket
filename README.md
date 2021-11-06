@@ -8,6 +8,9 @@
     # Add Storybook:
     npx -p @storybook/cli sb init --type react_native
 
+* If you're developing for iOS, you should also run a pod install from the ios/ directory.
+* https://github.com/luggit/react-native-config#extra-step-for-android - for config Constant.
+
 ## allow action for storybook
 
 - change storybook/rn-addons.js
@@ -38,3 +41,13 @@ jest.mock('global', () => ({
     ]
   }
 ```
+
+### Run the test and storybook.
+    # Run the test runner (Jest) in a terminal:
+    yarn test
+
+    # Start the component explorer on port 7007:
+    yarn storybook
+
+    # Run the frontend app proper on port 19002:
+    yarn web
