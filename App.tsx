@@ -1,4 +1,4 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { useColorScheme } from "react-native";
@@ -9,7 +9,8 @@ import useCachedResources from "./hooks/useCachedResources";
 import FirstInitScreen from "./screens/FirstInitScreen";
 import StorybookUI from "./storybook";
 import Config from "react-native-config";
-
+import { ApolloProvider } from "@apollo/client";
+import apiClient from "./apiClient";
 function App() {
   const isLoadingComplete = useCachedResources();
   const color = useColorScheme();
@@ -19,9 +20,11 @@ function App() {
     return (
       <SafeAreaProvider>
         <ThemeProvider theme={color === "dark" ? dark : light}>
-          <NavigationContainer>
-            <FirstInitScreen />
-          </NavigationContainer>
+          <ApolloProvider client={apiClient}>
+            <NavigationContainer>
+              <FirstInitScreen />
+            </NavigationContainer>
+          </ApolloProvider>
           <StatusBar />
         </ThemeProvider>
       </SafeAreaProvider>
