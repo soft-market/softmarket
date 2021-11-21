@@ -1,5 +1,5 @@
 import Config from "react-native-config";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HttpLink, InMemoryCache, ApolloClient } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
