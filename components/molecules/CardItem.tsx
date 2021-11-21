@@ -18,12 +18,11 @@ export default function ({ title, image }: Props) {
 }
 
 const ItemSideWrapper = styled(View)`
-  align-items: center;
-  justify-content: center;
+  padding: 10px;
 `;
 
 const ItemText = styled(SMText)``;
 const ItemImage = styled(Image)`
-  width: 250px;
-  height: 250px;
+  width: 120px;
+  height: 120px;
 `;
