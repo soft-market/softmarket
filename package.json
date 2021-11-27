@@ -8,7 +8,8 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "storybook": "start-storybook -p 7007",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prestorybook": "rnstl"
   },
   "jest": {
     "preset": "jest-expo"
@@ -36,6 +37,7 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-storybook-loader": "^2.0.4",
     "react-native-vector-image": "^0.3.2",
     "react-native-web": "~0.13.12",
     "styled-components": "^5.3.1",

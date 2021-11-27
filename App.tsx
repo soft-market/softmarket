@@ -8,9 +8,11 @@ import { dark, light } from "./constants/Theme";
 import useCachedResources from "./hooks/useCachedResources";
 import FirstInitScreen from "./screens/FirstInitScreen";
 import StorybookUI from "./storybook";
-import Config from "react-native-config";
 import { ApolloProvider } from "@apollo/client";
 import apiClient from "./apiClient";
+import getEnvVars from "./environment";
+const env = getEnvVars();
+
 function App() {
   const isLoadingComplete = useCachedResources();
   const color = useColorScheme();
@@ -33,4 +35,4 @@ function App() {
   }
 }
 
-export default Config.LOAD_STORYBOOK === "true" ? StorybookUI : App;
+export default env?.loadStorybook ? StorybookUI : App;
