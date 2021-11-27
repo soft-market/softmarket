@@ -12,6 +12,9 @@ declare module "styled-components" {
     card: string;
     border: string;
     notification: string;
+    colors: {
+      a1: string;
+    };
   }
 }
 
@@ -24,7 +27,10 @@ export const light: DefaultTheme = {
   primary: "#1e90ff",
   card: "#b0e0e6",
   border: "lightskyblue",
-  notification: "#00bfff"
+  notification: "#00bfff",
+  colors: {
+    a1: "#e0ffff"
+  }
 };
 
 export const dark: DefaultTheme = {
@@ -36,5 +42,8 @@ export const dark: DefaultTheme = {
   primary: "#1e90ff",
   card: "#b0e0e6",
   border: "lightskyblue",
-  notification: "#00bfff"
+  notification: "#00bfff",
+  colors: {
+    a1: "#e0ffff"
+  }
 };
