@@ -1,4 +1,4 @@
-import Config from "react-native-config";
+import getEnvVars from "./environment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HttpLink, InMemoryCache, ApolloClient } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
@@ -7,14 +7,17 @@ import { split } from "@apollo/client/link/core";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { ApolloLink } from "@apollo/client/link/core";
+const env = getEnvVars();
+
 const httpLink = new HttpLink({
-  uri: `${Config.API_URL}`
+  uri: `http://${env ? env.apiUrl : ""}`
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${Config.API_URL}`,
+  uri: `ws://${env ? env.apiUrl : ""}`,
   options: { reconnect: true }
 });
+
 const cache = new InMemoryCache();
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem("token");

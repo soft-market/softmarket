@@ -14,6 +14,7 @@ import apiClient from "./apiClient";
 function App() {
   const isLoadingComplete = useCachedResources();
   const color = useColorScheme();
+
   if (!isLoadingComplete) {
     return null;
   } else {
