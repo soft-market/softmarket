@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, ImageURISource, StyleSheet, Text } from "react-native";
 import styled from "styled-components/native";
 import { useGetItem } from "../../hooks/useItem";
@@ -17,6 +17,13 @@ type CardListType = {
 
 export default ({ cardList }: Props) => {
   const [data, loading, error] = useGetItem();
+  const [allItemList, setAllItemList] = useState<CardListType[]>([]);
+
+  useEffect(() => {
+    if (!loading && data) {
+      setAllItemList(data.items);
+    }
+  }, [loading, data]);
 
   const styles = StyleSheet.create({
     container: {
@@ -55,7 +62,7 @@ export default ({ cardList }: Props) => {
       </GroupedCardWrapper>
       <FlatList
         ListHeaderComponent={AllListHeader}
-        data={data.items}
+        data={allItemList}
         numColumns={2}
         stickyHeaderIndices={[0]}
         contentOffset={{ x: 0, y: 20 }}

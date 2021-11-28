@@ -8,7 +8,7 @@ const localhost =
 
 const ENV = {
   dev: {
-    loadStorybook: true,
+    loadStorybook: false,
     apiUrl: localhost
   },
   staging: {
