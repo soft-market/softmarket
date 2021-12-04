@@ -56,7 +56,7 @@ export default ({ cardList }: Props) => {
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}
       >
-        {cardList.map((card, index) => (
+        {allItemList.map((card, index) => (
           <CardItem key={index} title={card.title} image={card.image} />
         ))}
       </GroupedCardWrapper>
