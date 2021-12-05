@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "juckbarim",
-    "slug": "juckbarim",
+    "name": "softmarket",
+    "slug": "softmarket",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,13 +19,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "softmarket.expo.client"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "softmarket.expo.client"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

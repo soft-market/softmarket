@@ -5,6 +5,14 @@ import SMButton from "./atoms/SMButton";
 import SMInput from "./atoms/SMInput";
 import SMText from "./atoms/SMText";
 import { Image } from "react-native";
+import {
+  launchImageLibrary,
+  ImagePickerResponse,
+  Asset
+} from "react-native-image-picker";
+import { UPLOAD } from "../hooks/useUpload";
+import { useMutation } from "@apollo/client";
+
 type CreateModalProps = {
   visible: boolean;
   onClose: () => void;
@@ -12,6 +20,37 @@ type CreateModalProps = {
 
 export default ({ visible, onClose }: CreateModalProps) => {
   const [title, setTitle] = useState<string>("");
+  const [image, setImage] = useState<Asset[] | null>();
+  const [upload] = useMutation(UPLOAD);
+
+  const onUpload = async () => {
+    const result: ImagePickerResponse = await launchImageLibrary({
+      mediaType: "photo"
+    });
+    if (result.didCancel) {
+      return;
+    }
+    if (result.errorCode) {
+      console.log(result.errorMessage);
+    }
+
+    if (result.assets) {
+      setImage(result.assets);
+    }
+  };
+
+  const onCreate = async () => {
+    if (image) {
+      upload({
+        variables: {
+          file: {
+            name: image[0].fileName,
+            description: image[0].fileName
+          }
+        }
+      });
+    }
+  };
 
   return (
     <Modal
@@ -31,9 +70,13 @@ export default ({ visible, onClose }: CreateModalProps) => {
           <SMText>Item Description</SMText>
           <SMInput width={250} placeholder="write your item title." />
           <Group>
-            <Main>
+            <Main onPress={onUpload}>
               <ItemImage
-                source={require("../assets/images/default.png")}
+                source={
+                  image
+                    ? { uri: image[0].uri }
+                    : require("../assets/images/default.png")
+                }
                 style={{ width: 150, height: 160, margin: 5 }}
               />
             </Main>
@@ -50,7 +93,12 @@ export default ({ visible, onClose }: CreateModalProps) => {
           </Group>
         </ModalContent>
         <ModalFooter>
-          <SMButton content={"Create"} height={40} width={150} />
+          <SMButton
+            onPress={onCreate}
+            content={"Create"}
+            height={40}
+            width={150}
+          />
         </ModalFooter>
       </Container>
     </Modal>
@@ -67,7 +115,7 @@ const Container = styled.SafeAreaView`
 `;
 
 const ModalHeader = styled.View`
-  height: 100px;
+  height: 80px;
   justify-content: center;
   align-items: center;
 `;
@@ -87,7 +135,7 @@ const Group = styled.View`
   flex-direction: row;
   margin: 10px;
 `;
-const Main = styled.View`
+const Main = styled.TouchableWithoutFeedback`
   margin-right: 10px;
 `;
 const Sub = styled.View`
