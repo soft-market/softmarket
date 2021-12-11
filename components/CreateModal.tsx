@@ -12,7 +12,6 @@ import {
 } from "react-native-image-picker";
 import { UPLOAD } from "../hooks/useUpload";
 import { useMutation } from "@apollo/client";
-
 type CreateModalProps = {
   visible: boolean;
   onClose: () => void;
@@ -43,10 +42,7 @@ export default ({ visible, onClose }: CreateModalProps) => {
     if (image) {
       upload({
         variables: {
-          file: {
-            name: image[0].fileName,
-            description: image[0].fileName
-          }
+          attachments: image[0]
         }
       });
     }
