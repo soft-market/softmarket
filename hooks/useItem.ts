@@ -12,20 +12,8 @@ export const useGetItem = () => {
   return [data, loading, error];
 };
 
-export const useCreateItem = ({
-  title,
-  price,
-  description
-}: createItemInput) => {
-  const data = useMutation(CREATE_ITEM, {
-    variables: {
-      title,
-      price,
-      description
-    }
-  });
-
-  return data;
+export const useCreateItem = () => {
+  return useMutation(CREATE_ITEM);
 };
 
 const GET_ITEM = gql`
@@ -40,9 +28,19 @@ const GET_ITEM = gql`
 `;
 
 const CREATE_ITEM = gql`
-  mutation CreateItem($title: string!, $price: number!, $description: string) {
+  mutation CreateItem(
+    $title: String!
+    $price: Int!
+    $description: String
+    $url: String!
+  ) {
     createItem(
-      input: { title: $title, price: $price, description: $description }
+      input: {
+        title: $title
+        price: $price
+        description: $description
+        url: $url
+      }
     ) {
       id
     }

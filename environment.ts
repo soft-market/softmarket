@@ -3,8 +3,8 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 const localhost =
   Platform.OS === "ios"
-    ? "116.121.235.153:3000/graphql"
-    : "116.121.235.153:3000/grahpql";
+    ? "192.168.35.135:3000/graphql"
+    : "192.168.35.135:3000/grahpql";
 
 const ENV = {
   dev: {

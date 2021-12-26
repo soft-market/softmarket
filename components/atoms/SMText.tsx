@@ -6,24 +6,30 @@ type ComponentWithChildProps = React.PropsWithChildren<Props>;
 
 type Props = {
   isPressable?: boolean;
-  width?: number;
-  height?: number;
   onPress?: () => void;
+  fontSize?: number;
+  fontColor?: string;
 };
 
 export default function (props: ComponentWithChildProps) {
   if (props.isPressable) {
     return (
       <TouchableOpacity onPress={props.onPress}>
-        <CustomText>{props.children}</CustomText>
+        <CustomText fontSize={props.fontSize} fontColor={props.fontColor}>
+          {props.children}
+        </CustomText>
       </TouchableOpacity>
     );
   } else {
-    return <CustomText>{props.children}</CustomText>;
+    return (
+      <CustomText fontSize={props.fontSize} fontColor={props.fontColor}>
+        {props.children}
+      </CustomText>
+    );
   }
 }
 
 const CustomText = styled(Text)<{ fontColor?: string; fontSize?: number }>`
   color: ${({ fontColor }) => (fontColor ? fontColor : "black")};
-  font-size: ${({ fontSize }) => (fontSize ? fontSize + `px` : "12px")};
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : 12)}px;
 `;
