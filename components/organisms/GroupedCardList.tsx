@@ -7,7 +7,7 @@ import CardItem from "../molecules/CardItem";
 import FullCardItem from "../molecules/FullCardItem";
 
 type Props = {
-  cardList: Array<CardListType>;
+  cardList?: Array<CardListType>;
 };
 
 type CardListType = {
@@ -32,13 +32,13 @@ export default ({ cardList }: Props) => {
   });
 
   const RecentListHeader = useCallback(() => {
-    return <RecentItemText>Recent Items</RecentItemText>;
+    return <RecentItemText fontSize={22}>Recent Items</RecentItemText>;
   }, []);
 
   const AllListHeader = useCallback(() => {
     return (
       <HeaderView>
-        <RecentItemText>All Items</RecentItemText>
+        <RecentItemText fontSize={22}>All Items</RecentItemText>
       </HeaderView>
     );
   }, []);
@@ -65,7 +65,6 @@ export default ({ cardList }: Props) => {
         data={allItemList}
         numColumns={2}
         stickyHeaderIndices={[0]}
-        contentOffset={{ x: 0, y: 20 }}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         alwaysBounceHorizontal={false}
@@ -74,17 +73,12 @@ export default ({ cardList }: Props) => {
   );
 };
 
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+const Container = styled.View``;
 const GroupedCardWrapper = styled.ScrollView`
   height: 150px;
 `;
 const RecentItemText = styled(SMText)``;
 const HeaderView = styled.View`
-  height: 40px;
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.a1};
+  height: 30px;
+  justify-content: center;
 `;

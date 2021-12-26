@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import SMButton from "./atoms/SMButton";
 import SMInput from "./atoms/SMInput";
 import SMText from "./atoms/SMText";
-import { Image } from "react-native";
+import { Image, Platform } from "react-native";
 import {
   launchImageLibrary,
   ImagePickerResponse,
@@ -42,7 +42,13 @@ export default ({ visible, onClose }: CreateModalProps) => {
     if (image) {
       upload({
         variables: {
-          attachments: image[0]
+          attachments: {
+            ...image[0],
+            uri:
+              Platform.OS === "android"
+                ? image[0].uri
+                : image[0].uri?.replace("file://", "")
+          }
         }
       });
     }

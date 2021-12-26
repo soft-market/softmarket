@@ -17,7 +17,7 @@ export default function (props: ComponentWithChildProps) {
       style={{
         width: props.width ?? 200,
         height: props.height ?? 35,
-        backgroundColor: theme.background,
+        backgroundColor: theme.colors.a1,
         borderWidth: 0.5,
         borderRadius: 10,
         borderColor: theme.border,

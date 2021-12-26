@@ -12,13 +12,7 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Settings">) => {
   return (
     <>
       <Container>
-        <GroupedCardList
-          cardList={[
-            { title: "test", image: null },
-            { title: "test", image: null },
-            { title: "test", image: null }
-          ]}
-        />
+        <GroupedCardList />
         <FloatingButton
           onPress={() => {
             setVisible(true);
