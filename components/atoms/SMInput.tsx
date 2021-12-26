@@ -4,16 +4,20 @@ import { useTheme } from "styled-components";
 type ComponentWithChildProps = React.PropsWithChildren<Props>;
 
 type Props = {
+  type?: "default" | "numeric" | "email-address";
   width?: number;
   height?: number;
-  onPress?: () => void;
+  onChange?: () => void;
   placeholder?: string;
+  onChangeText?: (text: string) => void;
 };
 
 export default function (props: ComponentWithChildProps) {
   const theme = useTheme();
+
   return (
     <TextInput
+      keyboardType={props.type ?? "default"}
       style={{
         width: props.width ?? 200,
         height: props.height ?? 35,
@@ -24,6 +28,7 @@ export default function (props: ComponentWithChildProps) {
         paddingLeft: 10,
         margin: 10
       }}
+      onChangeText={props.onChangeText}
       placeholder={props.placeholder}
     />
   );

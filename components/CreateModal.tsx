@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Modal from "react-native-modal";
 import styled from "styled-components/native";
 import SMButton from "./atoms/SMButton";
 import SMInput from "./atoms/SMInput";
 import SMText from "./atoms/SMText";
-import { Image, Platform } from "react-native";
+import { Image } from "react-native";
+import { useCreateItem } from "../hooks/useItem";
 import {
   launchImageLibrary,
   ImagePickerResponse,
   Asset
 } from "react-native-image-picker";
-import { UPLOAD } from "../hooks/useUpload";
-import { useMutation } from "@apollo/client";
 type CreateModalProps = {
   visible: boolean;
   onClose: () => void;
@@ -19,9 +18,21 @@ type CreateModalProps = {
 
 export default ({ visible, onClose }: CreateModalProps) => {
   const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
   const [image, setImage] = useState<Asset[] | null>();
-  const [upload] = useMutation(UPLOAD);
+  const [addItem, { loading, error }] = useCreateItem();
+  // const [upload] = useMutation(UPLOAD);
 
+  const onChangeTitle = useCallback(text => {
+    setTitle(text);
+  }, []);
+  const onChangePrice = useCallback(text => {
+    setPrice(text);
+  }, []);
+  const onChangeDescription = useCallback(text => {
+    setDescription(text);
+  }, []);
   const onUpload = async () => {
     const result: ImagePickerResponse = await launchImageLibrary({
       mediaType: "photo"
@@ -39,19 +50,26 @@ export default ({ visible, onClose }: CreateModalProps) => {
   };
 
   const onCreate = async () => {
-    if (image) {
-      upload({
-        variables: {
-          attachments: {
-            ...image[0],
-            uri:
-              Platform.OS === "android"
-                ? image[0].uri
-                : image[0].uri?.replace("file://", "")
-          }
-        }
-      });
-    }
+    const parsedPrice = Number(price);
+    addItem({
+      variables: { title, price: parsedPrice, description, url: "empty" },
+      onCompleted: () => {
+        onClose();
+      }
+    });
+    // if (image) {
+    //   // upload({
+    //   //   variables: {
+    //   //     attachments: {
+    //   //       ...image[0],
+    //   //       uri:
+    //   //         Platform.OS === "android"
+    //   //           ? image[0].uri
+    //   //           : image[0].uri?.replace("file://", "")
+    //   //     }
+    //   //   }
+    //   // });
+    // }
   };
 
   return (
@@ -68,9 +86,24 @@ export default ({ visible, onClose }: CreateModalProps) => {
         </ModalHeader>
         <ModalContent>
           <SMText>Item Title</SMText>
-          <SMInput width={250} placeholder="write your item title." />
+          <SMInput
+            width={250}
+            placeholder="write your item title."
+            onChangeText={onChangeTitle}
+          />
+          <SMText>Item Price</SMText>
+          <SMInput
+            type="numeric"
+            width={250}
+            placeholder="write your item pice."
+            onChangeText={onChangePrice}
+          />
           <SMText>Item Description</SMText>
-          <SMInput width={250} placeholder="write your item title." />
+          <SMInput
+            width={250}
+            placeholder="write your item description."
+            onChangeText={onChangeDescription}
+          />
           <Group>
             <Main onPress={onUpload}>
               <ItemImage
